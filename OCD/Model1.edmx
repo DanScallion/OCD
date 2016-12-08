@@ -1,0 +1,982 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="12.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ADVENTURER">
+          <Key>
+            <PropertyRef Name="ADVENTURERID" />
+          </Key>
+          <Property Name="ADVENTURERID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="varchar2" MaxLength="32" Nullable="false" />
+          <Property Name="ENTITYID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="DUNGEONID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SHOPID" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DUNGEON">
+          <Key>
+            <PropertyRef Name="DUNGEONID" />
+          </Key>
+          <Property Name="DUNGEONID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ROOMSDONE" Type="number" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="ROOMSDONEHIGHEST" Type="number" Precision="9" Scale="0" Nullable="false" />
+          <Property Name="MONSTERID" Type="number" Precision="38" Scale="0" />
+          <Property Name="REFRESHSHOP" Type="number" Precision="1" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ENTITY">
+          <Key>
+            <PropertyRef Name="ENTITYID" />
+          </Key>
+          <Property Name="ENTITYID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ROOMS" Type="number" Precision="12" Scale="0" Nullable="false" />
+          <Property Name="INVENTORYID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="EQUIPMENTID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="MONEY" Type="number" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="HEALTH" Type="number" Precision="6" Scale="0" Nullable="false" />
+          <Property Name="MAXHEALTH" Type="number" Precision="6" Scale="0" Nullable="false" />
+          <Property Name="STATUS" Type="varchar2" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="INVENTORY">
+          <Key>
+            <PropertyRef Name="INVENTORYID" />
+          </Key>
+          <Property Name="INVENTORYID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SLOTQUANTITY" Type="number" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="INSERTPOLICY" Type="varchar2" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ITEM">
+          <Key>
+            <PropertyRef Name="ITEMID" />
+          </Key>
+          <Property Name="ITEMID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TYPEID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="PRICE" Type="number" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="ROOMSTOEQUIP" Type="number" Precision="12" Scale="0" Nullable="false" />
+          <Property Name="BONUSHEALTH" Type="number" Precision="2" Scale="0" />
+          <Property Name="BONUSDEFENSE" Type="number" Precision="2" Scale="0" />
+          <Property Name="BONUSATTACK" Type="number" Precision="2" Scale="0" />
+          <Property Name="BONUSCRITICAL" Type="number" Precision="2" Scale="0" />
+        </EntityType>
+        <EntityType Name="ITEMTYPE">
+          <Key>
+            <PropertyRef Name="ITEMTYPEID" />
+          </Key>
+          <Property Name="ITEMTYPEID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ITEMNAME" Type="varchar2" MaxLength="64" Nullable="false" />
+          <Property Name="TYPENAME" Type="varchar2" MaxLength="16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LORD">
+          <Key>
+            <PropertyRef Name="LORDID" />
+          </Key>
+          <Property Name="LORDID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LOGIN" Type="varchar2" MaxLength="32" Nullable="false" />
+          <Property Name="PWD" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="BLOCKED" Type="number" Precision="1" Scale="0" Nullable="false" />
+          <Property Name="CURRENTADVENTURER" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="LORDADVENTURER">
+          <Key>
+            <PropertyRef Name="LORDID" />
+            <PropertyRef Name="ADVENTURERID" />
+          </Key>
+          <Property Name="LORDID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ADVENTURERID" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MONSTER">
+          <Key>
+            <PropertyRef Name="MONSTERID" />
+          </Key>
+          <Property Name="MONSTERID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAMEID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ENTITYID" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MONSTERNAME">
+          <Key>
+            <PropertyRef Name="MONSTERNAMEID" />
+          </Key>
+          <Property Name="MONSTERNAMEID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="varchar2" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SLOT">
+          <Key>
+            <PropertyRef Name="SLOTID" />
+          </Key>
+          <Property Name="SLOTID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="INVENTORYID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ITEMID" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ADVENTURER_DUNGEONID">
+          <End Role="DUNGEON" Type="Self.DUNGEON" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ADVENTURER" Type="Self.ADVENTURER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUNGEON">
+              <PropertyRef Name="DUNGEONID" />
+            </Principal>
+            <Dependent Role="ADVENTURER">
+              <PropertyRef Name="DUNGEONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ADVENTURER_ENTITYID">
+          <End Role="ENTITY" Type="Self.ENTITY" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ADVENTURER" Type="Self.ADVENTURER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENTITY">
+              <PropertyRef Name="ENTITYID" />
+            </Principal>
+            <Dependent Role="ADVENTURER">
+              <PropertyRef Name="ENTITYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ADVENTURER_SHOPID">
+          <End Role="INVENTORY" Type="Self.INVENTORY" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ADVENTURER" Type="Self.ADVENTURER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INVENTORY">
+              <PropertyRef Name="INVENTORYID" />
+            </Principal>
+            <Dependent Role="ADVENTURER">
+              <PropertyRef Name="SHOPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DUNGEON_MONSTERID">
+          <End Role="MONSTER" Type="Self.MONSTER" Multiplicity="0..1" />
+          <End Role="DUNGEON" Type="Self.DUNGEON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MONSTER">
+              <PropertyRef Name="MONSTERID" />
+            </Principal>
+            <Dependent Role="DUNGEON">
+              <PropertyRef Name="MONSTERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ENTITY_EQUIPMENTID">
+          <End Role="INVENTORY" Type="Self.INVENTORY" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENTITY" Type="Self.ENTITY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INVENTORY">
+              <PropertyRef Name="INVENTORYID" />
+            </Principal>
+            <Dependent Role="ENTITY">
+              <PropertyRef Name="EQUIPMENTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ENTITY_INVENTORYID">
+          <End Role="INVENTORY" Type="Self.INVENTORY" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENTITY" Type="Self.ENTITY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INVENTORY">
+              <PropertyRef Name="INVENTORYID" />
+            </Principal>
+            <Dependent Role="ENTITY">
+              <PropertyRef Name="INVENTORYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ITEM_TYPEID">
+          <End Role="ITEMTYPE" Type="Self.ITEMTYPE" Multiplicity="1" />
+          <End Role="ITEM" Type="Self.ITEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ITEMTYPE">
+              <PropertyRef Name="ITEMTYPEID" />
+            </Principal>
+            <Dependent Role="ITEM">
+              <PropertyRef Name="TYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LORD_CURRENTADVENTURER">
+          <End Role="ADVENTURER" Type="Self.ADVENTURER" Multiplicity="0..1" />
+          <End Role="LORD" Type="Self.LORD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ADVENTURER">
+              <PropertyRef Name="ADVENTURERID" />
+            </Principal>
+            <Dependent Role="LORD">
+              <PropertyRef Name="CURRENTADVENTURER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LORDADVENTURER_ADVENTURERID">
+          <End Role="ADVENTURER" Type="Self.ADVENTURER" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LORDADVENTURER" Type="Self.LORDADVENTURER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ADVENTURER">
+              <PropertyRef Name="ADVENTURERID" />
+            </Principal>
+            <Dependent Role="LORDADVENTURER">
+              <PropertyRef Name="ADVENTURERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LORDADVENTURER_LORDID">
+          <End Role="LORD" Type="Self.LORD" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LORDADVENTURER" Type="Self.LORDADVENTURER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LORD">
+              <PropertyRef Name="LORDID" />
+            </Principal>
+            <Dependent Role="LORDADVENTURER">
+              <PropertyRef Name="LORDID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MONSTER_ENTITYID">
+          <End Role="ENTITY" Type="Self.ENTITY" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MONSTER" Type="Self.MONSTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENTITY">
+              <PropertyRef Name="ENTITYID" />
+            </Principal>
+            <Dependent Role="MONSTER">
+              <PropertyRef Name="ENTITYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MONSTER_NAMEID">
+          <End Role="MONSTERNAME" Type="Self.MONSTERNAME" Multiplicity="1" />
+          <End Role="MONSTER" Type="Self.MONSTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MONSTERNAME">
+              <PropertyRef Name="MONSTERNAMEID" />
+            </Principal>
+            <Dependent Role="MONSTER">
+              <PropertyRef Name="NAMEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SLOT_INVENTORYID">
+          <End Role="INVENTORY" Type="Self.INVENTORY" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SLOT" Type="Self.SLOT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INVENTORY">
+              <PropertyRef Name="INVENTORYID" />
+            </Principal>
+            <Dependent Role="SLOT">
+              <PropertyRef Name="INVENTORYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SLOT_ITEMID">
+          <End Role="ITEM" Type="Self.ITEM" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SLOT" Type="Self.SLOT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ITEM">
+              <PropertyRef Name="ITEMID" />
+            </Principal>
+            <Dependent Role="SLOT">
+              <PropertyRef Name="ITEMID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ATTACK" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN" />
+        <Function Name="BUYITEM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN">
+          <Parameter Name="P_ADVENTURERID" Type="number" Mode="In" />
+          <Parameter Name="P_ITEMID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="CHANGESTATUS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN">
+          <Parameter Name="P_ENTITYID" Type="number" Mode="In" />
+          <Parameter Name="P_STATUS" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="CONNECTUSER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN" ReturnType="int">
+          <Parameter Name="P_LOGIN" Type="varchar2" Mode="In" />
+          <Parameter Name="P_PASSWORD" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="CREATEENTITY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN" ReturnType="number" />
+        <Function Name="CREATEINVENTORY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN" ReturnType="number">
+          <Parameter Name="P_SLOTQUANTITY" Type="number" Mode="In" />
+          <Parameter Name="P_INSERTPOLICY" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="CREATELORD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN">
+          <Parameter Name="P_LOGIN" Type="varchar2" Mode="In" />
+          <Parameter Name="P_PASS1" Type="varchar2" Mode="In" />
+          <Parameter Name="P_PASS2" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="FIGHT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN" ReturnType="number" />
+        <Function Name="FLEE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN">
+          <Parameter Name="P_ADVENTURERID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="GENERATEITEM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN" ReturnType="number">
+          <Parameter Name="P_ROOMSOFENTITY" Type="number" Mode="In" />
+        </Function>
+        <Function Name="GENERATEMONSTER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN" ReturnType="number">
+          <Parameter Name="P_ROOMSOFADVENTURER" Type="number" Mode="In" />
+        </Function>
+        <Function Name="GENERATESHOP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN" ReturnType="number">
+          <Parameter Name="P_ROOMSOFADVENTURER" Type="number" Mode="In" />
+        </Function>
+        <Function Name="GETEQUIPMENTATTACKBONUS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN" ReturnType="number">
+          <Parameter Name="P_INVENTORYID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="GETEQUIPMENTCRITICALBONUS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN" ReturnType="number">
+          <Parameter Name="P_INVENTORYID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="GETEQUIPMENTDEFENSEBONUS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN" ReturnType="number">
+          <Parameter Name="P_INVENTORYID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="GETEQUIPMENTHEALTHBONUS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN" ReturnType="number">
+          <Parameter Name="P_INVENTORYID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="GETHASH" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN" ReturnType="varchar2">
+          <Parameter Name="P_LOGIN" Type="varchar2" Mode="In" />
+          <Parameter Name="P_PASSWORD" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="GETITEMOFSAMETYPEININVENTORY" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN" ReturnType="number">
+          <Parameter Name="P_INVENTORYID" Type="number" Mode="In" />
+          <Parameter Name="P_TYPENAME" Type="varchar2" Mode="In" />
+        </Function>
+        <Function Name="GETVALUEFORITEMBONUS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN" ReturnType="number">
+          <Parameter Name="P_ROOMSOFENTITY" Type="number" Mode="In" />
+        </Function>
+        <Function Name="MOVEITEM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN">
+          <Parameter Name="P_INVENTORYIDFROM" Type="number" Mode="In" />
+          <Parameter Name="P_INVENTORYIDTO" Type="number" Mode="In" />
+          <Parameter Name="P_ITEMID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="NEXTFIGHT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN">
+          <Parameter Name="P_ADVENTURERID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="PICKRANDOMITEMTYPE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN" ReturnType="number" />
+        <Function Name="PICKRANDOMMONSTERNAME" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN" ReturnType="number" />
+        <Function Name="SELLITEM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN">
+          <Parameter Name="P_ADVENTURERID" Type="number" Mode="In" />
+          <Parameter Name="P_ITEMID" Type="number" Mode="In" />
+        </Function>
+        <Function Name="SWITCHADVENTURER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="DBA_ADMIN">
+          <Parameter Name="P_LORDID" Type="number" Mode="In" />
+          <Parameter Name="P_ADVENTURERID" Type="number" Mode="In" />
+        </Function>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="ADVENTURER" EntityType="Self.ADVENTURER" Schema="DBA_ADMIN" store:Type="Tables" />
+          <EntitySet Name="DUNGEON" EntityType="Self.DUNGEON" Schema="DBA_ADMIN" store:Type="Tables" />
+          <EntitySet Name="ENTITY" EntityType="Self.ENTITY" Schema="DBA_ADMIN" store:Type="Tables" />
+          <EntitySet Name="INVENTORY" EntityType="Self.INVENTORY" Schema="DBA_ADMIN" store:Type="Tables" />
+          <EntitySet Name="ITEM" EntityType="Self.ITEM" Schema="DBA_ADMIN" store:Type="Tables" />
+          <EntitySet Name="ITEMTYPE" EntityType="Self.ITEMTYPE" Schema="DBA_ADMIN" store:Type="Tables" />
+          <EntitySet Name="LORD" EntityType="Self.LORD" Schema="DBA_ADMIN" store:Type="Tables" />
+          <EntitySet Name="LORDADVENTURER" EntityType="Self.LORDADVENTURER" Schema="DBA_ADMIN" store:Type="Tables" />
+          <EntitySet Name="MONSTER" EntityType="Self.MONSTER" Schema="DBA_ADMIN" store:Type="Tables" />
+          <EntitySet Name="MONSTERNAME" EntityType="Self.MONSTERNAME" Schema="DBA_ADMIN" store:Type="Tables" />
+          <EntitySet Name="SLOT" EntityType="Self.SLOT" Schema="DBA_ADMIN" store:Type="Tables" />
+          <AssociationSet Name="FK_ADVENTURER_DUNGEONID" Association="Self.FK_ADVENTURER_DUNGEONID">
+            <End Role="DUNGEON" EntitySet="DUNGEON" />
+            <End Role="ADVENTURER" EntitySet="ADVENTURER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ADVENTURER_ENTITYID" Association="Self.FK_ADVENTURER_ENTITYID">
+            <End Role="ENTITY" EntitySet="ENTITY" />
+            <End Role="ADVENTURER" EntitySet="ADVENTURER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ADVENTURER_SHOPID" Association="Self.FK_ADVENTURER_SHOPID">
+            <End Role="INVENTORY" EntitySet="INVENTORY" />
+            <End Role="ADVENTURER" EntitySet="ADVENTURER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DUNGEON_MONSTERID" Association="Self.FK_DUNGEON_MONSTERID">
+            <End Role="MONSTER" EntitySet="MONSTER" />
+            <End Role="DUNGEON" EntitySet="DUNGEON" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ENTITY_EQUIPMENTID" Association="Self.FK_ENTITY_EQUIPMENTID">
+            <End Role="INVENTORY" EntitySet="INVENTORY" />
+            <End Role="ENTITY" EntitySet="ENTITY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ENTITY_INVENTORYID" Association="Self.FK_ENTITY_INVENTORYID">
+            <End Role="INVENTORY" EntitySet="INVENTORY" />
+            <End Role="ENTITY" EntitySet="ENTITY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ITEM_TYPEID" Association="Self.FK_ITEM_TYPEID">
+            <End Role="ITEMTYPE" EntitySet="ITEMTYPE" />
+            <End Role="ITEM" EntitySet="ITEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LORD_CURRENTADVENTURER" Association="Self.FK_LORD_CURRENTADVENTURER">
+            <End Role="ADVENTURER" EntitySet="ADVENTURER" />
+            <End Role="LORD" EntitySet="LORD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LORDADVENTURER_ADVENTURERID" Association="Self.FK_LORDADVENTURER_ADVENTURERID">
+            <End Role="ADVENTURER" EntitySet="ADVENTURER" />
+            <End Role="LORDADVENTURER" EntitySet="LORDADVENTURER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LORDADVENTURER_LORDID" Association="Self.FK_LORDADVENTURER_LORDID">
+            <End Role="LORD" EntitySet="LORD" />
+            <End Role="LORDADVENTURER" EntitySet="LORDADVENTURER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MONSTER_ENTITYID" Association="Self.FK_MONSTER_ENTITYID">
+            <End Role="ENTITY" EntitySet="ENTITY" />
+            <End Role="MONSTER" EntitySet="MONSTER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MONSTER_NAMEID" Association="Self.FK_MONSTER_NAMEID">
+            <End Role="MONSTERNAME" EntitySet="MONSTERNAME" />
+            <End Role="MONSTER" EntitySet="MONSTER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SLOT_INVENTORYID" Association="Self.FK_SLOT_INVENTORYID">
+            <End Role="INVENTORY" EntitySet="INVENTORY" />
+            <End Role="SLOT" EntitySet="SLOT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SLOT_ITEMID" Association="Self.FK_SLOT_ITEMID">
+            <End Role="ITEM" EntitySet="ITEM" />
+            <End Role="SLOT" EntitySet="SLOT" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ADVENTURER">
+          <Key>
+            <PropertyRef Name="ADVENTURERID" />
+          </Key>
+          <Property Name="ADVENTURERID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ENTITYID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="DUNGEONID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SHOPID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="DUNGEON" Relationship="Self.FK_ADVENTURER_DUNGEONID" FromRole="ADVENTURER" ToRole="DUNGEON" />
+          <NavigationProperty Name="ENTITY" Relationship="Self.FK_ADVENTURER_ENTITYID" FromRole="ADVENTURER" ToRole="ENTITY" />
+          <NavigationProperty Name="INVENTORY" Relationship="Self.FK_ADVENTURER_SHOPID" FromRole="ADVENTURER" ToRole="INVENTORY" />
+          <NavigationProperty Name="LORDs" Relationship="Self.FK_LORD_CURRENTADVENTURER" FromRole="ADVENTURER" ToRole="LORD" />
+          <NavigationProperty Name="LORDs1" Relationship="Self.LORDADVENTURER" FromRole="ADVENTURER" ToRole="LORD" />
+        </EntityType>
+        <EntityType Name="DUNGEON">
+          <Key>
+            <PropertyRef Name="DUNGEONID" />
+          </Key>
+          <Property Name="DUNGEONID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ROOMSDONE" Type="Int32" Nullable="false" />
+          <Property Name="ROOMSDONEHIGHEST" Type="Int32" Nullable="false" />
+          <Property Name="MONSTERID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="REFRESHSHOP" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ADVENTURERs" Relationship="Self.FK_ADVENTURER_DUNGEONID" FromRole="DUNGEON" ToRole="ADVENTURER" />
+          <NavigationProperty Name="MONSTER" Relationship="Self.FK_DUNGEON_MONSTERID" FromRole="DUNGEON" ToRole="MONSTER" />
+        </EntityType>
+        <EntityType Name="ENTITY">
+          <Key>
+            <PropertyRef Name="ENTITYID" />
+          </Key>
+          <Property Name="ENTITYID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ROOMS" Type="Int64" Nullable="false" />
+          <Property Name="INVENTORYID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="EQUIPMENTID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="MONEY" Type="Decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="HEALTH" Type="Int32" Nullable="false" />
+          <Property Name="MAXHEALTH" Type="Int32" Nullable="false" />
+          <Property Name="STATUS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ADVENTURERs" Relationship="Self.FK_ADVENTURER_ENTITYID" FromRole="ENTITY" ToRole="ADVENTURER" />
+          <NavigationProperty Name="INVENTORY" Relationship="Self.FK_ENTITY_EQUIPMENTID" FromRole="ENTITY" ToRole="INVENTORY" />
+          <NavigationProperty Name="INVENTORY1" Relationship="Self.FK_ENTITY_INVENTORYID" FromRole="ENTITY" ToRole="INVENTORY" />
+          <NavigationProperty Name="MONSTERs" Relationship="Self.FK_MONSTER_ENTITYID" FromRole="ENTITY" ToRole="MONSTER" />
+        </EntityType>
+        <EntityType Name="INVENTORY">
+          <Key>
+            <PropertyRef Name="INVENTORYID" />
+          </Key>
+          <Property Name="INVENTORYID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SLOTQUANTITY" Type="Byte" Nullable="false" />
+          <Property Name="INSERTPOLICY" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ADVENTURERs" Relationship="Self.FK_ADVENTURER_SHOPID" FromRole="INVENTORY" ToRole="ADVENTURER" />
+          <NavigationProperty Name="ENTITies" Relationship="Self.FK_ENTITY_EQUIPMENTID" FromRole="INVENTORY" ToRole="ENTITY" />
+          <NavigationProperty Name="ENTITies1" Relationship="Self.FK_ENTITY_INVENTORYID" FromRole="INVENTORY" ToRole="ENTITY" />
+          <NavigationProperty Name="SLOTs" Relationship="Self.FK_SLOT_INVENTORYID" FromRole="INVENTORY" ToRole="SLOT" />
+        </EntityType>
+        <EntityType Name="ITEM">
+          <Key>
+            <PropertyRef Name="ITEMID" />
+          </Key>
+          <Property Name="ITEMID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TYPEID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="PRICE" Type="Decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="ROOMSTOEQUIP" Type="Int64" Nullable="false" />
+          <Property Name="BONUSHEALTH" Type="Byte" />
+          <Property Name="BONUSDEFENSE" Type="Byte" />
+          <Property Name="BONUSATTACK" Type="Byte" />
+          <Property Name="BONUSCRITICAL" Type="Byte" />
+          <NavigationProperty Name="ITEMTYPE" Relationship="Self.FK_ITEM_TYPEID" FromRole="ITEM" ToRole="ITEMTYPE" />
+          <NavigationProperty Name="SLOTs" Relationship="Self.FK_SLOT_ITEMID" FromRole="ITEM" ToRole="SLOT" />
+        </EntityType>
+        <EntityType Name="ITEMTYPE">
+          <Key>
+            <PropertyRef Name="ITEMTYPEID" />
+          </Key>
+          <Property Name="ITEMTYPEID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ITEMNAME" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TYPENAME" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ITEMs" Relationship="Self.FK_ITEM_TYPEID" FromRole="ITEMTYPE" ToRole="ITEM" />
+        </EntityType>
+        <EntityType Name="LORD">
+          <Key>
+            <PropertyRef Name="LORDID" />
+          </Key>
+          <Property Name="LORDID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LOGIN" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PWD" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BLOCKED" Type="Boolean" Nullable="false" />
+          <Property Name="CURRENTADVENTURER" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="ADVENTURER" Relationship="Self.FK_LORD_CURRENTADVENTURER" FromRole="LORD" ToRole="ADVENTURER" />
+          <NavigationProperty Name="ADVENTURERs" Relationship="Self.LORDADVENTURER" FromRole="LORD" ToRole="ADVENTURER" />
+        </EntityType>
+        <EntityType Name="MONSTER">
+          <Key>
+            <PropertyRef Name="MONSTERID" />
+          </Key>
+          <Property Name="MONSTERID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAMEID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ENTITYID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="DUNGEONs" Relationship="Self.FK_DUNGEON_MONSTERID" FromRole="MONSTER" ToRole="DUNGEON" />
+          <NavigationProperty Name="ENTITY" Relationship="Self.FK_MONSTER_ENTITYID" FromRole="MONSTER" ToRole="ENTITY" />
+          <NavigationProperty Name="MONSTERNAME" Relationship="Self.FK_MONSTER_NAMEID" FromRole="MONSTER" ToRole="MONSTERNAME" />
+        </EntityType>
+        <EntityType Name="MONSTERNAME">
+          <Key>
+            <PropertyRef Name="MONSTERNAMEID" />
+          </Key>
+          <Property Name="MONSTERNAMEID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="MONSTERs" Relationship="Self.FK_MONSTER_NAMEID" FromRole="MONSTERNAME" ToRole="MONSTER" />
+        </EntityType>
+        <EntityType Name="SLOT">
+          <Key>
+            <PropertyRef Name="SLOTID" />
+          </Key>
+          <Property Name="SLOTID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="INVENTORYID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ITEMID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="INVENTORY" Relationship="Self.FK_SLOT_INVENTORYID" FromRole="SLOT" ToRole="INVENTORY" />
+          <NavigationProperty Name="ITEM" Relationship="Self.FK_SLOT_ITEMID" FromRole="SLOT" ToRole="ITEM" />
+        </EntityType>
+        <Association Name="FK_ADVENTURER_DUNGEONID">
+          <End Role="DUNGEON" Type="Self.DUNGEON" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ADVENTURER" Type="Self.ADVENTURER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DUNGEON">
+              <PropertyRef Name="DUNGEONID" />
+            </Principal>
+            <Dependent Role="ADVENTURER">
+              <PropertyRef Name="DUNGEONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ADVENTURER_ENTITYID">
+          <End Role="ENTITY" Type="Self.ENTITY" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ADVENTURER" Type="Self.ADVENTURER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENTITY">
+              <PropertyRef Name="ENTITYID" />
+            </Principal>
+            <Dependent Role="ADVENTURER">
+              <PropertyRef Name="ENTITYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ADVENTURER_SHOPID">
+          <End Role="INVENTORY" Type="Self.INVENTORY" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ADVENTURER" Type="Self.ADVENTURER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INVENTORY">
+              <PropertyRef Name="INVENTORYID" />
+            </Principal>
+            <Dependent Role="ADVENTURER">
+              <PropertyRef Name="SHOPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LORD_CURRENTADVENTURER">
+          <End Role="ADVENTURER" Type="Self.ADVENTURER" Multiplicity="0..1" />
+          <End Role="LORD" Type="Self.LORD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ADVENTURER">
+              <PropertyRef Name="ADVENTURERID" />
+            </Principal>
+            <Dependent Role="LORD">
+              <PropertyRef Name="CURRENTADVENTURER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DUNGEON_MONSTERID">
+          <End Role="MONSTER" Type="Self.MONSTER" Multiplicity="0..1" />
+          <End Role="DUNGEON" Type="Self.DUNGEON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MONSTER">
+              <PropertyRef Name="MONSTERID" />
+            </Principal>
+            <Dependent Role="DUNGEON">
+              <PropertyRef Name="MONSTERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ENTITY_EQUIPMENTID">
+          <End Role="INVENTORY" Type="Self.INVENTORY" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENTITY" Type="Self.ENTITY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INVENTORY">
+              <PropertyRef Name="INVENTORYID" />
+            </Principal>
+            <Dependent Role="ENTITY">
+              <PropertyRef Name="EQUIPMENTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ENTITY_INVENTORYID">
+          <End Role="INVENTORY" Type="Self.INVENTORY" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ENTITY" Type="Self.ENTITY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INVENTORY">
+              <PropertyRef Name="INVENTORYID" />
+            </Principal>
+            <Dependent Role="ENTITY">
+              <PropertyRef Name="INVENTORYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MONSTER_ENTITYID">
+          <End Role="ENTITY" Type="Self.ENTITY" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MONSTER" Type="Self.MONSTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ENTITY">
+              <PropertyRef Name="ENTITYID" />
+            </Principal>
+            <Dependent Role="MONSTER">
+              <PropertyRef Name="ENTITYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SLOT_INVENTORYID">
+          <End Role="INVENTORY" Type="Self.INVENTORY" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SLOT" Type="Self.SLOT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="INVENTORY">
+              <PropertyRef Name="INVENTORYID" />
+            </Principal>
+            <Dependent Role="SLOT">
+              <PropertyRef Name="INVENTORYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ITEM_TYPEID">
+          <End Role="ITEMTYPE" Type="Self.ITEMTYPE" Multiplicity="1" />
+          <End Role="ITEM" Type="Self.ITEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ITEMTYPE">
+              <PropertyRef Name="ITEMTYPEID" />
+            </Principal>
+            <Dependent Role="ITEM">
+              <PropertyRef Name="TYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SLOT_ITEMID">
+          <End Role="ITEM" Type="Self.ITEM" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SLOT" Type="Self.SLOT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ITEM">
+              <PropertyRef Name="ITEMID" />
+            </Principal>
+            <Dependent Role="SLOT">
+              <PropertyRef Name="ITEMID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MONSTER_NAMEID">
+          <End Role="MONSTERNAME" Type="Self.MONSTERNAME" Multiplicity="1" />
+          <End Role="MONSTER" Type="Self.MONSTER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MONSTERNAME">
+              <PropertyRef Name="MONSTERNAMEID" />
+            </Principal>
+            <Dependent Role="MONSTER">
+              <PropertyRef Name="NAMEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LORDADVENTURER">
+          <End Role="ADVENTURER" Type="Self.ADVENTURER" Multiplicity="*" />
+          <End Role="LORD" Type="Self.LORD" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ADVENTURERs" EntityType="Self.ADVENTURER" />
+          <EntitySet Name="DUNGEONs" EntityType="Self.DUNGEON" />
+          <EntitySet Name="ENTITies" EntityType="Self.ENTITY" />
+          <EntitySet Name="INVENTORies" EntityType="Self.INVENTORY" />
+          <EntitySet Name="ITEMs" EntityType="Self.ITEM" />
+          <EntitySet Name="ITEMTYPEs" EntityType="Self.ITEMTYPE" />
+          <EntitySet Name="LORDs" EntityType="Self.LORD" />
+          <EntitySet Name="MONSTERs" EntityType="Self.MONSTER" />
+          <EntitySet Name="MONSTERNAMEs" EntityType="Self.MONSTERNAME" />
+          <EntitySet Name="SLOTs" EntityType="Self.SLOT" />
+          <AssociationSet Name="FK_ADVENTURER_DUNGEONID" Association="Self.FK_ADVENTURER_DUNGEONID">
+            <End Role="DUNGEON" EntitySet="DUNGEONs" />
+            <End Role="ADVENTURER" EntitySet="ADVENTURERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ADVENTURER_ENTITYID" Association="Self.FK_ADVENTURER_ENTITYID">
+            <End Role="ENTITY" EntitySet="ENTITies" />
+            <End Role="ADVENTURER" EntitySet="ADVENTURERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ADVENTURER_SHOPID" Association="Self.FK_ADVENTURER_SHOPID">
+            <End Role="INVENTORY" EntitySet="INVENTORies" />
+            <End Role="ADVENTURER" EntitySet="ADVENTURERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LORD_CURRENTADVENTURER" Association="Self.FK_LORD_CURRENTADVENTURER">
+            <End Role="ADVENTURER" EntitySet="ADVENTURERs" />
+            <End Role="LORD" EntitySet="LORDs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DUNGEON_MONSTERID" Association="Self.FK_DUNGEON_MONSTERID">
+            <End Role="MONSTER" EntitySet="MONSTERs" />
+            <End Role="DUNGEON" EntitySet="DUNGEONs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ENTITY_EQUIPMENTID" Association="Self.FK_ENTITY_EQUIPMENTID">
+            <End Role="INVENTORY" EntitySet="INVENTORies" />
+            <End Role="ENTITY" EntitySet="ENTITies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ENTITY_INVENTORYID" Association="Self.FK_ENTITY_INVENTORYID">
+            <End Role="INVENTORY" EntitySet="INVENTORies" />
+            <End Role="ENTITY" EntitySet="ENTITies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MONSTER_ENTITYID" Association="Self.FK_MONSTER_ENTITYID">
+            <End Role="ENTITY" EntitySet="ENTITies" />
+            <End Role="MONSTER" EntitySet="MONSTERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SLOT_INVENTORYID" Association="Self.FK_SLOT_INVENTORYID">
+            <End Role="INVENTORY" EntitySet="INVENTORies" />
+            <End Role="SLOT" EntitySet="SLOTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ITEM_TYPEID" Association="Self.FK_ITEM_TYPEID">
+            <End Role="ITEMTYPE" EntitySet="ITEMTYPEs" />
+            <End Role="ITEM" EntitySet="ITEMs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SLOT_ITEMID" Association="Self.FK_SLOT_ITEMID">
+            <End Role="ITEM" EntitySet="ITEMs" />
+            <End Role="SLOT" EntitySet="SLOTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MONSTER_NAMEID" Association="Self.FK_MONSTER_NAMEID">
+            <End Role="MONSTERNAME" EntitySet="MONSTERNAMEs" />
+            <End Role="MONSTER" EntitySet="MONSTERs" />
+          </AssociationSet>
+          <AssociationSet Name="LORDADVENTURER" Association="Self.LORDADVENTURER">
+            <End Role="ADVENTURER" EntitySet="ADVENTURERs" />
+            <End Role="LORD" EntitySet="LORDs" />
+          </AssociationSet>
+          <FunctionImport Name="ATTACK" />
+          <FunctionImport Name="BUYITEM">
+            <Parameter Name="P_ADVENTURERID" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ITEMID" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="CHANGESTATUS">
+            <Parameter Name="P_ENTITYID" Mode="In" Type="Decimal" />
+            <Parameter Name="P_STATUS" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CREATELORD">
+            <Parameter Name="P_LOGIN" Mode="In" Type="String" />
+            <Parameter Name="P_PASS1" Mode="In" Type="String" />
+            <Parameter Name="P_PASS2" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="FLEE">
+          <Parameter Name="P_ADVENTURERID" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="MOVEITEM">
+            <Parameter Name="P_INVENTORYIDFROM" Mode="In" Type="Decimal" />
+            <Parameter Name="P_INVENTORYIDTO" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ITEMID" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="NEXTFIGHT">
+          <Parameter Name="P_ADVENTURERID" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SELLITEM">
+            <Parameter Name="P_ADVENTURERID" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ITEMID" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="SWITCHADVENTURER">
+            <Parameter Name="P_LORDID" Mode="In" Type="Decimal" />
+            <Parameter Name="P_ADVENTURERID" Mode="In" Type="Decimal" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="ADVENTURERs">
+            <EntityTypeMapping TypeName="Model.ADVENTURER">
+              <MappingFragment StoreEntitySet="ADVENTURER">
+                <ScalarProperty Name="ADVENTURERID" ColumnName="ADVENTURERID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ENTITYID" ColumnName="ENTITYID" />
+                <ScalarProperty Name="DUNGEONID" ColumnName="DUNGEONID" />
+                <ScalarProperty Name="SHOPID" ColumnName="SHOPID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DUNGEONs">
+            <EntityTypeMapping TypeName="Model.DUNGEON">
+              <MappingFragment StoreEntitySet="DUNGEON">
+                <ScalarProperty Name="DUNGEONID" ColumnName="DUNGEONID" />
+                <ScalarProperty Name="ROOMSDONE" ColumnName="ROOMSDONE" />
+                <ScalarProperty Name="ROOMSDONEHIGHEST" ColumnName="ROOMSDONEHIGHEST" />
+                <ScalarProperty Name="MONSTERID" ColumnName="MONSTERID" />
+                <ScalarProperty Name="REFRESHSHOP" ColumnName="REFRESHSHOP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ENTITies">
+            <EntityTypeMapping TypeName="Model.ENTITY">
+              <MappingFragment StoreEntitySet="ENTITY">
+                <ScalarProperty Name="ENTITYID" ColumnName="ENTITYID" />
+                <ScalarProperty Name="ROOMS" ColumnName="ROOMS" />
+                <ScalarProperty Name="INVENTORYID" ColumnName="INVENTORYID" />
+                <ScalarProperty Name="EQUIPMENTID" ColumnName="EQUIPMENTID" />
+                <ScalarProperty Name="MONEY" ColumnName="MONEY" />
+                <ScalarProperty Name="HEALTH" ColumnName="HEALTH" />
+                <ScalarProperty Name="MAXHEALTH" ColumnName="MAXHEALTH" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INVENTORies">
+            <EntityTypeMapping TypeName="Model.INVENTORY">
+              <MappingFragment StoreEntitySet="INVENTORY">
+                <ScalarProperty Name="INVENTORYID" ColumnName="INVENTORYID" />
+                <ScalarProperty Name="SLOTQUANTITY" ColumnName="SLOTQUANTITY" />
+                <ScalarProperty Name="INSERTPOLICY" ColumnName="INSERTPOLICY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ITEMs">
+            <EntityTypeMapping TypeName="Model.ITEM">
+              <MappingFragment StoreEntitySet="ITEM">
+                <ScalarProperty Name="ITEMID" ColumnName="ITEMID" />
+                <ScalarProperty Name="TYPEID" ColumnName="TYPEID" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="ROOMSTOEQUIP" ColumnName="ROOMSTOEQUIP" />
+                <ScalarProperty Name="BONUSHEALTH" ColumnName="BONUSHEALTH" />
+                <ScalarProperty Name="BONUSDEFENSE" ColumnName="BONUSDEFENSE" />
+                <ScalarProperty Name="BONUSATTACK" ColumnName="BONUSATTACK" />
+                <ScalarProperty Name="BONUSCRITICAL" ColumnName="BONUSCRITICAL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ITEMTYPEs">
+            <EntityTypeMapping TypeName="Model.ITEMTYPE">
+              <MappingFragment StoreEntitySet="ITEMTYPE">
+                <ScalarProperty Name="ITEMTYPEID" ColumnName="ITEMTYPEID" />
+                <ScalarProperty Name="ITEMNAME" ColumnName="ITEMNAME" />
+                <ScalarProperty Name="TYPENAME" ColumnName="TYPENAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LORDs">
+            <EntityTypeMapping TypeName="Model.LORD">
+              <MappingFragment StoreEntitySet="LORD">
+                <ScalarProperty Name="LORDID" ColumnName="LORDID" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="PWD" ColumnName="PWD" />
+                <ScalarProperty Name="BLOCKED" ColumnName="BLOCKED" />
+                <ScalarProperty Name="CURRENTADVENTURER" ColumnName="CURRENTADVENTURER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MONSTERs">
+            <EntityTypeMapping TypeName="Model.MONSTER">
+              <MappingFragment StoreEntitySet="MONSTER">
+                <ScalarProperty Name="MONSTERID" ColumnName="MONSTERID" />
+                <ScalarProperty Name="NAMEID" ColumnName="NAMEID" />
+                <ScalarProperty Name="ENTITYID" ColumnName="ENTITYID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MONSTERNAMEs">
+            <EntityTypeMapping TypeName="Model.MONSTERNAME">
+              <MappingFragment StoreEntitySet="MONSTERNAME">
+                <ScalarProperty Name="MONSTERNAMEID" ColumnName="MONSTERNAMEID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SLOTs">
+            <EntityTypeMapping TypeName="Model.SLOT">
+              <MappingFragment StoreEntitySet="SLOT">
+                <ScalarProperty Name="SLOTID" ColumnName="SLOTID" />
+                <ScalarProperty Name="INVENTORYID" ColumnName="INVENTORYID" />
+                <ScalarProperty Name="ITEMID" ColumnName="ITEMID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="LORDADVENTURER" TypeName="Model.LORDADVENTURER" StoreEntitySet="LORDADVENTURER">
+            <EndProperty Name="ADVENTURER">
+              <ScalarProperty Name="ADVENTURERID" ColumnName="ADVENTURERID" />
+            </EndProperty>
+            <EndProperty Name="LORD">
+              <ScalarProperty Name="LORDID" ColumnName="LORDID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="ATTACK" FunctionName="Model.Store.ATTACK" />
+          <FunctionImportMapping FunctionImportName="BUYITEM" FunctionName="Model.Store.BUYITEM" />
+          <FunctionImportMapping FunctionImportName="CHANGESTATUS" FunctionName="Model.Store.CHANGESTATUS" />
+          <FunctionImportMapping FunctionImportName="CREATELORD" FunctionName="Model.Store.CREATELORD" />
+          <FunctionImportMapping FunctionImportName="FLEE" FunctionName="Model.Store.FLEE" />
+          <FunctionImportMapping FunctionImportName="MOVEITEM" FunctionName="Model.Store.MOVEITEM" />
+          <FunctionImportMapping FunctionImportName="NEXTFIGHT" FunctionName="Model.Store.NEXTFIGHT" />
+          <FunctionImportMapping FunctionImportName="SELLITEM" FunctionName="Model.Store.SELLITEM" />
+          <FunctionImportMapping FunctionImportName="SWITCHADVENTURER" FunctionName="Model.Store.SWITCHADVENTURER" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
