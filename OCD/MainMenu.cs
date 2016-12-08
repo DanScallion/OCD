@@ -52,9 +52,14 @@ namespace OCD
                     userID = context.Database.ExecuteSqlCommand("connectUser('" + loginName.Text + "' , '" + loginPass.Text + "')");
                     //userID = connectUser(loginName.Text, loginPass.Text);
 
-                    lbErrorOrMessage.Text = "Login Successfully";
+
+
+                    /*lbErrorOrMessage.Text = "Login Successfully";
                     lbErrorOrMessage.BackColor = Color.Green;
-                    lbErrorOrMessage.Visible = true;
+                    lbErrorOrMessage.Visible = true;*/
+                    InGame ingame = new InGame(this, userID, "Login Successfully", Color.Green);
+                    this.Hide();
+                    ingame.Show();
                 }
                 catch
                 {
