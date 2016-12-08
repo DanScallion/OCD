@@ -50,7 +50,7 @@ namespace OCD
                     SqlParameter userName = new SqlParameter("@login", loginName.Text);
                     SqlParameter userPass = new SqlParameter("@pass", loginPass.Text);
                     userID = context.Database.ExecuteSqlCommand("connectUser('" + loginName.Text + "' , '" + loginPass.Text + "')");
-                    //userID = connectUser(loginName.Text, loginPass.Text);
+                    userID = connectUser(loginName.Text, loginPass.Text);
 
 
 
